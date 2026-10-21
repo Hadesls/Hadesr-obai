@@ -94,11 +94,11 @@ git clone https://github.com/Hadesls/Hadesr-obai.git
 ## 移动端
 
 核心逻辑与平台无关，已做触摸适配（点外面关闭、加大点击区域）。
-行内补全依赖 Obsidian 内置的 CodeMirror 模块，移动端拿不到时会自动关闭补全，其余功能正常。
+行内补全使用 Obsidian 编辑器提供的能力；移动端如果该能力不可用，补全会自动关闭，其余功能正常。
 
 ## 已知限制
 
-- 行内补全依赖 Obsidian 内置的 CodeMirror 模块（未公开 API）。拿不到时会静默关闭补全，其余功能不受影响。
+- 行内补全使用 Obsidian 编辑器提供的能力；当前环境不支持时会自动关闭补全，其余功能不受影响。
 - 推理模型（会输出 thinking 的）在**非流式**下可能把 `max_tokens` 全用在思考上、正文为空 —— 补全会自动关思考（`reasoning_effort: none` 等三种写法依次尝试）。
 
 ## License
