@@ -2252,3 +2252,35 @@
   color: var(--text-faint);
 }
 
+
+/* 设置页文字 logo：放大 + 彩色渐变 + hover 流动 */
+.obai-settings .obai-head-name {
+  font-size: 28px !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  letter-spacing: .3px;
+  text-transform: none !important;
+  color: var(--text-accent);
+  transition: transform .2s ease, filter .2s ease;
+}
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .obai-settings .obai-head-name {
+    background: linear-gradient(90deg, #ff6b6b, #f7b731, #20bf6b, #4b7bec, #a55eea, #ff6b6b);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+.obai-settings .obai-head-name:hover {
+  transform: translateY(-1px) scale(1.04);
+  filter: saturate(1.25) brightness(1.06);
+  animation: obai-logo-flow 2.4s linear infinite;
+}
+.obai-settings .obai-head-name::first-letter {
+  text-transform: uppercase;
+}
+@keyframes obai-logo-flow {
+  from { background-position: 0% 50%; }
+  to { background-position: 300% 50%; }
+}

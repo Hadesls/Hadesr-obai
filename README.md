@@ -23,12 +23,34 @@
 | **添加笔记属性** | 自动生成 title / summary / tags 写进 frontmatter |
 | **三种接口格式** | OpenAI / Anthropic / Google，可自由添加多个，可为每个动作单独指定 |
 
+## 界面预览
+
+选中文字后浮出胶囊，`▾` 展开动作菜单：
+
+![选中文字后的动作菜单](docs/bubble-menu.png)
+
 ## 安装
 
-1. 下载本仓库的 `main.js`、`manifest.json`、`styles.css`
-2. 放进你的库：`<你的笔记库>/.obsidian/plugins/hadesr-obai/`
-3. Obsidian → 设置 → 第三方插件 → 关闭安全模式 → 启用 **Hadesr AI**
+### 方式一：社区插件市场
 
+`设置` → `第三方插件` → 关闭安全模式 → `浏览` → 搜索 **Hadesr AI** → 安装 → 启用。
+
+### 方式二：Git / 手动安装
+
+```bash
+git clone https://github.com/Hadesls/Hadesr-obai.git
+```
+
+把仓库里的 `main.js`、`manifest.json`、`styles.css` 放进：
+
+```
+<你的笔记库>/.obsidian/plugins/hadesr-obai/
+```
+
+然后在 Obsidian → `设置` → `第三方插件` → 关闭安全模式 → 启用 **Hadesr AI**。
+
+> 也可以直接在 GitHub 仓库页点 **Code → Download ZIP**，解压后取那三个文件。
+>
 > 目录名必须是 `hadesr-obai`，与 `manifest.json` 里的 `id` 一致，否则加载不了。
 
 ## 第一次配置
@@ -41,7 +63,17 @@
 
 支持本地服务（Ollama / vLLM / LM Studio 等），Key 可留空。
 
-## 常用入口
+## 怎么使用
+
+最短路径：
+
+1. **选中文字** → 浮出 `✦ AI ▾`；
+2. 点主按钮 = 上次用过的动作；点 `▾` 换动作（润色 / 纠错 / 精简 / 扩写…）；
+3. 想自由指令：`▾` → **快速改写…** → 输入要求；
+4. 行内补全：停手 0.4 秒出灰字，`Tab` 采纳、`Esc` 忽略；
+5. AI 对话：文档右上角 ✨。
+
+### 常用入口
 
 | 想做什么 | 怎么做 |
 |---|---|
@@ -55,7 +87,7 @@
 
 ## 隐私
 
-- **API Key 只存在你本机的 `data.json`**，用 RC4 + base64 做了**混淆**（防随手一看，不是加密 —— 本地方案都这样）。
+- **API Key 只存在你本机的 `data.json`**，用 RC4 + base64 做了**混淆**（防随手一看，不是加密）。
 - 除调用你自己的接口外，不向任何第三方发送数据；无统计、无上报。
 - 唯一的网络行为就是把你选中的文本/上下文发给你配置的那个 API。
 
