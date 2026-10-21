@@ -1,0 +1,10 @@
+{
+  "id": "hadesr-obai",
+  "name": "Hadesr AI",
+  "version": "0.53.0",
+  "minAppVersion": "1.4.0",
+  "description": "文档右上角 ✨ 打开 AI 对话；选中文字浮出胶囊「✦ AI ▾」：润色 / 翻译 / 总结等 16 个动作、转 Canvas、添加笔记属性。行内补全先出「AI 思考中」再逐字吐灰字，可选参考整篇笔记的术语与风格，Tab 采纳、Esc 忽略。支持 OpenAI / Anthropic / Google 三种接口；API Key 加密存储。",
+  "author": "Hadesr",
+  "authorUrl": "https://github.com/Hadesls",
+  "isDesktopOnly": false
+}

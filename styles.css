@@ -1,0 +1,2254 @@
+
+
+/* 结果区：等宽 + 可编辑，方便直接微调 */
+.obai-text {
+  width: 100%;
+  min-height: 260px;
+  box-sizing: border-box;
+  resize: vertical;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-family: var(--font-monospace);
+  font-size: 13px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.obai-text:disabled {
+  color: var(--text-faint);
+  background: var(--background-secondary);
+}
+
+.obai-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.obai-btn {
+  padding: 6px 14px;
+}
+
+.obai-btn.ghost {
+  background: transparent;
+  border: 1px solid var(--background-modifier-border);
+  color: var(--text-normal);      /* 用正常色 —— 灰色会让人以为不可点 */
+}
+
+/* 设置页里每套后端一个小卡片，三套分得开 */
+.obai-slot {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  padding: 0;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+/* 折叠标题行：点一下展开 / 收起 */
+.obai-slot > summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  user-select: none;
+  background: var(--background-secondary);
+}
+
+.obai-slot > summary::-webkit-details-marker { display: none; }
+
+/* 自己画一个三角，展开时转 90° */
+.obai-slot > summary::before {
+  content: '▸';
+  font-size: 11px;
+  line-height: 1;
+  color: var(--text-muted);
+  transition: transform .12s ease;
+  display: inline-block;
+}
+
+.obai-slot[open] > summary::before { transform: rotate(90deg); }
+
+.obai-slot > summary:hover { background: var(--background-modifier-hover); }
+
+.obai-slot-name {
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+/* 右侧状态：未填地址 / 缺模型名 / 已配置 · xxx */
+.obai-slot-state {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.obai-slot-body {
+  padding: 6px 14px 10px 14px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+/* ---------------- 选模型弹窗 ---------------- */
+/* ---------------- 接口格式徽标（折叠标题里的小标签） ---------------- */
+.obai-fmt-badge {
+  font-size: 11px;
+  padding: 1px 7px;
+  border-radius: 10px;
+  background: var(--background-modifier-border);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ---------------- 添加接口按钮 ---------------- */
+.obai-add-row {
+  margin: 12px 0 4px 0;
+}
+
+.obai-add-btn {
+  width: 100%;
+  padding: 9px 14px;
+  border: 1px dashed var(--background-modifier-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.obai-add-btn:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+  border-color: var(--interactive-accent);
+}
+
+/* ---------------- 诊断报告 ---------------- */
+.obai-diag-box {
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 4px;
+}
+
+.obai-diag-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--background-modifier-border);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.obai-diag-row:last-child { border-bottom: none; }
+
+.obai-diag-mark {
+  flex: 0 0 auto;
+  width: 16px;
+}
+
+.obai-diag-label {
+  flex: 0 0 auto;
+  min-width: 96px;
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.obai-diag-detail {
+  flex: 1 1 auto;
+  color: var(--text-muted);
+  word-break: break-all;
+}
+
+.obai-diag-verdict {
+  font-size: 13px;
+}
+
+/* ---------------- 选中浮条 ---------------- */
+.obai-bubble {
+  position: fixed;
+  z-index: var(--layer-popover, 30);
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 8px;
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
+}
+
+.obai-bubble-more {
+  margin-left: 2px;
+  border-left: 1px solid var(--background-modifier-border);
+  border-radius: 0 5px 5px 0;
+}
+
+/* ---------------- 挑动作弹窗（整篇处理用） ---------------- */
+.obai-pickaction {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.obai-pickaction .obai-btn {
+  width: 100%;
+}
+
+/* 结果框：别让它顶满整屏，留出空间看下面的笔记 */
+.obai-text {
+  max-height: 55vh;
+}
+
+/* 模板条 */
+.obai-tpl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 6px 0 4px;
+}
+
+/* ================= 改写框（紧凑） ================= */
+.obai-rw-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.obai-rw-close {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.obai-rw-close:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+/* 输入框容器：两个小按钮浮在右下角 */
+.obai-rw-inputwrap {
+  position: relative;
+}
+
+.obai-rw-input {
+  width: 100%;
+  min-height: 64px;
+  max-height: 180px;
+  resize: none;            /* 把手被右下角图标压住，拉不动 → 改成 JS 自动长高 */
+  box-sizing: border-box;
+  padding: 9px 11px 34px 11px;
+  border-radius: 10px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-primary);
+  color: var(--text-normal);
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: var(--font-text);
+}
+
+.obai-rw-input:focus {
+  border-color: var(--interactive-accent);
+  box-shadow: 0 0 0 2px rgba(var(--interactive-accent-rgb, 120, 120, 255), 0.12);
+}
+
+.obai-rw-inner {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  display: flex;
+  gap: 4px;
+}
+
+.obai-rw-iconbtn {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 7px;
+  background: var(--background-secondary);
+  color: var(--text-muted);
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.obai-rw-iconbtn:hover {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+
+.obai-rw-iconbtn.is-send {
+  color: var(--interactive-accent);
+  border-color: var(--interactive-accent);
+}
+
+.obai-rw-iconbtn .svg-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.obai-rw-ctx {
+  margin-top: 6px;
+}
+
+.obai-ctx-chip {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.obai-rw-hint {
+  margin-top: 4px;
+  font-size: 10.5px;
+  line-height: 1.4;
+  color: var(--text-faint);
+}
+
+/* ================= AI 建议卡片 ================= */
+.obai-sug-who {
+  font-size: 11px;
+  color: var(--text-faint);
+  margin-right: 4px;
+}
+
+.obai-sug-body {
+  max-height: 56vh;
+  overflow-y: auto;
+  padding: 4px 2px;
+}
+
+/* 渲染后的 Markdown（像正常笔记） */
+.obai-md {
+  font-size: 14px;
+  line-height: 1.72;
+  color: var(--text-normal);
+}
+
+.obai-md > *:first-child {
+  margin-top: 0;
+}
+
+.obai-md pre {
+  overflow-x: auto;
+}
+
+.obai-sug-btns {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+/* ================= 模板管理 ================= */
+.obai-vars {
+  margin: 4px 0 12px;
+}
+
+.obai-vars-title {
+  font-size: 11px;
+  color: var(--text-faint);
+  margin-bottom: 6px;
+}
+
+.obai-vars-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.obai-var {
+  font-size: 11px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--background-secondary);
+  color: var(--text-muted);
+  font-family: var(--font-monospace);
+}
+
+.obai-tplrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.obai-tplrow-main {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.obai-tplrow-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.obai-tplrow-desc {
+  font-size: 11.5px;
+  color: var(--text-faint);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.obai-tplrow-btns {
+  flex: 0 0 auto;
+  display: flex;
+  gap: 6px;
+}
+
+.obai-tplfoot {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+/* ================= 浮动结果卡片 ================= */
+.obai-floatcard {
+  position: fixed;
+  z-index: calc(var(--layer-modal, 50) + 10);   /* 要盖过弹窗，因为可能从改写框里弹出 */
+  width: 540px;
+  max-width: calc(100vw - 32px);
+  box-sizing: border-box;
+  padding: 12px 14px 10px;
+  border-radius: 12px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+
+.obai-floatcard .obai-sug-body {
+  max-height: 46vh;
+  overflow-y: auto;
+}
+
+/* 加载态 */
+@keyframes obai-rot {
+  to { transform: rotate(360deg); }
+}
+
+.obai-err-block {
+  color: var(--text-error);
+  font-size: 12.5px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  padding: 8px 2px;
+}
+
+/* 结果卡里的编辑框别太高 */
+.obai-floatcard .obai-text {
+  min-height: 170px;
+  max-height: 40vh;
+}
+
+/* ================= 共用：顶栏 + 小胶囊按钮 =================
+   （上面清理时误删过，这里补回 —— 改写框和结果卡的顶栏都靠它） */
+.obai-chat-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-normal);
+}
+
+.obai-chat-tools {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.obai-chipbtn {
+  font-size: 11.5px;
+  padding: 3px 9px;
+  border-radius: 12px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+  color: var(--text-normal);      /* 同上：可用就该是正常色 */
+  cursor: pointer;
+  box-shadow: none;
+  white-space: nowrap;
+  line-height: 1.5;
+}
+
+.obai-chipbtn:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.obai-chipbtn.is-on {
+  border-color: var(--interactive-accent);
+  color: var(--interactive-accent);
+}
+
+.obai-chipbtn.is-danger {
+  color: var(--text-error);
+  border-color: var(--text-error);
+}
+
+.obai-chipbtn.is-accent {
+  color: var(--interactive-accent);
+  border-color: var(--interactive-accent);
+}
+
+/* 加载时标题脉动（不再另起一行显示"正在写"） */
+.obai-chat-title.is-writing {
+  color: var(--text-muted);
+  animation: obai-pulse 1.1s ease-in-out infinite;
+}
+
+@keyframes obai-pulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* 只有真的禁用才灰 */
+.obai-btn:disabled,
+.obai-chipbtn:disabled,
+.obai-rw-iconbtn:disabled {
+  color: var(--text-faint) !important;
+  opacity: 0.55;
+  cursor: default;
+}
+
+/* ================= 紧凑弹窗（改写框用） =================
+   Obsidian 的 Modal 结构是：
+     .modal-container > .modal-bg + .modal > (.modal-header-button + .modal-header + .modal-content)
+   其中 .modal-header 是空标题栏，白占一大块高度 —— 藏掉它，关闭按钮不受影响（它是 .modal 的直接子元素） */
+
+/* ================= 改写框：自绘浮动面板 =================
+   不用 Obsidian 的 Modal —— 它的宽高被 .modal 卡、内边距被 .modal-content 卡，
+   还有一层半透明遮罩，怎么调都显得大。自绘就没有这些约束。 */
+.obai-rwbox {
+  position: fixed;
+  z-index: calc(var(--layer-modal, 50) + 10);
+  width: 540px;
+  max-width: calc(100vw - 24px);
+  box-sizing: border-box;
+  padding: 10px 12px 10px;
+  border-radius: 12px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18);
+}
+
+/* 快速改写：只一个输入框，窄一点、矮一点 */
+.obai-rwbox.is-compact {
+  width: 380px;
+  padding: 8px 10px 8px;
+}
+
+.obai-rwbox.is-compact .obai-rw-input {
+  min-height: 44px;
+}
+
+.obai-rwbox.is-compact .obai-rw-hint {
+  margin-top: 4px;
+}
+
+.obai-rw-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-normal);
+}
+
+.obai-rw-x {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.obai-rw-x:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+/* ---------------- 引用笔记 ---------------- */
+.obai-rw-refs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.obai-ref-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.obai-ref-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--background-secondary);
+  border: 1px solid var(--interactive-accent);
+  color: var(--text-normal);
+  max-width: 220px;
+  overflow: hidden;
+}
+
+.obai-ref-chip > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.obai-ref-x {
+  cursor: pointer;
+  color: var(--text-muted);
+  flex: 0 0 auto;
+}
+
+.obai-ref-x:hover {
+  color: var(--text-error);
+}
+
+/* ---------------- 思考过程（推理模型才有） ---------------- */
+.obai-think {
+  margin-bottom: 10px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  background: var(--background-secondary);
+  overflow: hidden;
+}
+
+.obai-think > summary {
+  padding: 6px 10px;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.obai-think > summary:hover {
+  color: var(--text-normal);
+}
+
+.obai-think-body {
+  padding: 8px 12px 10px;
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  white-space: pre-wrap;
+  max-height: 240px;
+  overflow-y: auto;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+/* ---------------- 悬浮胶囊（✦ AI动作 ▾） ---------------- */
+.obai-bubble {
+  padding: 2px;
+  gap: 0;
+}
+
+.obai-bubble-main {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 9px;
+  border: none;
+  border-radius: 7px 0 0 7px;
+  background: transparent;
+  color: var(--interactive-accent);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: none;
+  white-space: nowrap;
+}
+
+.obai-bubble-main:hover {
+  background: var(--background-modifier-hover);
+}
+
+.obai-bubble-icon {
+  display: flex;
+  align-items: center;
+}
+
+.obai-bubble-icon .svg-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.obai-bubble-more {
+  width: 22px;
+  height: 26px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-left: 1px solid var(--background-modifier-border);
+  border-radius: 0 7px 7px 0;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.obai-bubble-more:hover {
+  background: var(--background-modifier-hover);
+  color: var(--text-normal);
+}
+
+.obai-bubble-more .svg-icon {
+  width: 13px;
+  height: 13px;
+}
+
+/* 胶囊上的文字：AI 蓝色，工具名正常色（跟对方一样） */
+.obai-pill-ai {
+  color: var(--interactive-accent);
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.obai-pill-tool {
+  color: var(--text-normal);
+  font-weight: 500;
+  margin-left: 1px;
+}
+
+/* 流式输出中的正文（还没渲染 Markdown，纯文本先给个手感） */
+.obai-stream {
+  font-size: 13.5px;
+  line-height: 1.72;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text-normal);
+}
+
+/* ============================================================ 行内补全的灰字
+   它是插在光标处的 widget，必须"看起来像正文的继续"：
+   字体、字号继承编辑器（不要自己设），只把颜色压淡、不加粗不斜体。
+   pointer-events: none —— 否则鼠标划过会把光标吸过去，很别扭。 */
+.obai-ghost {
+  color: var(--text-faint);
+  opacity: 0.9;
+  white-space: pre-wrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 第一次出现时跟在后面：一个「Tab」键帽 + 采纳 */
+.obai-ghost-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 9px;
+  font-size: 0.74em;
+  color: var(--text-muted);
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+.obai-ghost-key {
+  padding: 0 5px;
+  border-radius: 4px;
+  border: 1px solid var(--background-modifier-border);
+  border-bottom-width: 2px;
+  background: var(--background-primary);
+  color: var(--text-muted);
+  font-family: var(--font-monospace);
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+
+/* ============================================================
+   等待药丸（请求那 1~2 秒全靠它告诉用户"在干活"）
+   参考 editing-toolbar 的观感：胶囊 + 会呼吸的发光圆点。
+   字体不设 —— 继承编辑器，才像"正文里长出来的东西"。
+   ============================================================ */
+.obai-ghost-wait {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: 4px;
+  padding: 2px 11px 2px 9px;
+  border-radius: 999px;
+  font-size: 0.8em;
+  line-height: 1.7;
+  color: var(--text-normal);
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  vertical-align: baseline;
+  transform: translateY(1px);
+}
+
+.obai-ghost-label {
+  color: var(--text-normal);
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+.obai-ghost-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: var(--interactive-accent);
+  box-shadow: 0 0 6px var(--interactive-accent);
+  animation: obai-breathe 1.1s ease-in-out infinite;
+}
+
+@keyframes obai-breathe {
+  0%, 100% { opacity: 0.55; transform: scale(0.85); }
+  50%      { opacity: 1;    transform: scale(1.05); }
+}
+
+/* 深色主题：胶囊底色更透一点，光晕更明显（跟你截图那个观感一致） */
+.theme-dark .obai-ghost-wait {
+  background: rgba(255, 255, 255, 0.055);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .obai-ghost-dot { animation: none; opacity: 1; transform: none; }
+}
+
+
+/* 深色主题下 --text-faint 偏暗，稍微提亮一点点，否则几乎看不见 */
+.theme-dark .obai-ghost {
+  color: var(--text-faint);
+  opacity: 1;
+}
+
+/* ============================================================ 补全诊断（设置页）
+   不补的时候先看这里：模块、扩展、开关、上次失败原因，一眼定位卡在哪一环。 */
+.obai-diag {
+  margin: 6px 0 18px 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+}
+
+.obai-diag-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: .4px;
+  margin-bottom: 6px;
+}
+
+.obai-diag-row {
+  display: flex;
+  gap: 10px;
+  font-size: 12.5px;
+  line-height: 1.9;
+  align-items: baseline;
+}
+
+.obai-diag-k {
+  flex: 0 0 108px;
+  color: var(--text-muted);
+}
+
+.obai-diag-v {
+  flex: 1;
+  color: var(--text-normal);
+  word-break: break-all;
+}
+
+.obai-diag-v.is-bad {
+  color: var(--text-error);
+}
+
+.obai-diag-btn {
+  margin-top: 8px;
+  font-size: 12.5px;
+}
+
+/* ---------------- 补：手输模型名容器（平时 display:none，由 JS 控制） ---------------- */
+.obai-manual-wrap {
+  margin: 4px 0 2px 0;
+}
+
+/* ---------------- 补：模板编辑弹窗里的正文框 ---------------- */
+.obai-tpledit textarea {
+  min-height: 180px;
+}
+
+/* ============================================================
+   设置页：头部 + 目录 + 二级页
+   ============================================================ */
+.obai-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 2px 14px 2px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid var(--background-modifier-border);
+}
+
+.obai-head-left {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.obai-head-name {
+  font-size: 1.15em;
+  font-weight: 700;
+  color: var(--text-normal);
+  letter-spacing: .2px;
+}
+
+.obai-head-meta {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+
+
+.obai-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin: 2px 0 10px 0;
+  padding: 4px 10px 4px 6px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.obai-back:hover {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+}
+
+.obai-back-title {
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.obai-back-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.obai-back-icon .svg-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* 目录行 */
+.obai-nav-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  margin: 6px 0;
+  border-radius: 10px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+  cursor: pointer;
+  transition: background .1s ease, border-color .1s ease;
+}
+
+.obai-nav-row:hover {
+  background: var(--background-modifier-hover);
+  border-color: var(--background-modifier-border-hover);
+}
+
+.obai-nav-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background: var(--background-primary);
+  color: var(--text-muted);
+}
+
+.obai-nav-icon .svg-icon {
+  width: 17px;
+  height: 17px;
+}
+
+.obai-nav-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.obai-nav-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-normal);
+}
+
+.obai-nav-desc {
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.obai-nav-arrow {
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--text-faint);
+}
+
+.obai-nav-arrow .svg-icon {
+  width: 16px;
+  height: 16px;
+}
+
+/* ============================================================
+   结果卡片：对比原文（行级 diff）
+   删除红、新增绿（跟主流 diff 一致，跟股市涨跌色无关）
+   ============================================================ */
+.obai-diff-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 2px 0 6px 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.obai-diff-stat {
+  font-weight: 500;
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.obai-diff {
+  max-height: 320px;
+  overflow: auto;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 8px;
+  background: var(--background-primary);
+  font-family: var(--font-monospace);
+  font-size: 12.5px;
+  line-height: 1.65;
+}
+
+.obai-diff-line {
+  display: flex;
+  gap: 6px;
+  padding: 0 8px 0 4px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.obai-diff-sign {
+  flex: 0 0 12px;
+  text-align: center;
+  color: var(--text-faint);
+  user-select: none;
+}
+
+.obai-diff-text {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.obai-diff-line.is-add {
+  background: rgba(46, 160, 67, 0.14);
+}
+.obai-diff-line.is-add .obai-diff-sign {
+  color: var(--color-green);
+}
+
+.obai-diff-line.is-del {
+  background: rgba(248, 81, 73, 0.13);
+}
+.obai-diff-line.is-del .obai-diff-sign {
+  color: var(--color-red);
+}
+.obai-diff-line.is-del .obai-diff-text {
+  text-decoration: line-through;
+  opacity: .75;
+}
+
+.obai-diff-line.is-skip {
+  justify-content: center;
+  padding: 2px 8px;
+  color: var(--text-faint);
+  background: var(--background-secondary);
+  font-size: 11.5px;
+}
+
+.obai-diff-line.is-same {
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   结果卡片：引用回链（参考了哪几篇，点一下跳过去）
+   ============================================================ */
+.obai-src-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--background-modifier-border);
+  font-size: 12px;
+}
+
+.obai-src-label {
+  color: var(--text-faint);
+  flex: 0 0 auto;
+}
+
+.obai-src-chip {
+  padding: 1px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--background-modifier-border);
+  background: var(--background-secondary);
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.9;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.obai-src-chip:hover {
+  color: var(--text-normal);
+  background: var(--background-modifier-hover);
+  border-color: var(--background-modifier-border-hover);
+}
+
+/* ============================================================
+   设置页视觉增强（**纯样式层**：只改颜色/间距/圆角，
+   不新增 DOM、不改结构 —— 所以不可能影响任何功能）
+   ============================================================ */
+
+/* 头部做成一整块，像插件的"名片" */
+.obai-head {
+  padding: 14px 16px;
+  margin: 2px 0 16px 0;
+  border-radius: 12px;
+  border: 1px solid var(--background-modifier-border);
+  background:
+    linear-gradient(135deg,
+      var(--background-secondary) 0%,
+      var(--background-primary) 70%);
+}
+
+.obai-head-name {
+  font-size: 1.22em;
+  letter-spacing: .3px;
+}
+
+/* 目录行：左侧一条 accent 竖条，hover 才亮出来 */
+.obai-nav-row {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  padding: 12px 14px 12px 16px;
+}
+
+.obai-nav-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--interactive-accent);
+  opacity: 0;
+  transition: opacity .12s ease;
+}
+
+.obai-nav-row:hover::before {
+  opacity: .85;
+}
+
+.obai-nav-icon {
+  transition: color .12s ease, background .12s ease;
+}
+
+.obai-nav-row:hover .obai-nav-icon {
+  color: var(--text-accent);
+  background: var(--background-primary-alt, var(--background-primary));
+}
+
+.obai-nav-arrow {
+  transition: transform .12s ease;
+}
+
+.obai-nav-row:hover .obai-nav-arrow {
+  transform: translateX(2px);
+  color: var(--text-normal);
+}
+
+/* 折叠块更像"卡片"，展开时不那么挤 */
+.obai-slot {
+  border-radius: 10px;
+}
+
+.obai-slot > summary {
+  padding: 9px 13px;
+}
+
+.obai-slot-body {
+  padding: 8px 14px 12px 14px;
+}
+
+/* 二级页的返回按钮稍微收一点，别抢标题 */
+.obai-back {
+  margin-bottom: 8px;
+}
+
+/* 设置页里所有 chip / 小按钮统一圆角（原来有些地方是直角的） */
+.obai-chipbtn {
+  border-radius: 7px;
+}
+
+/* 浅色主题下卡片阴影轻一点，避免"糊" */
+.theme-light .obai-nav-row {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.theme-light .obai-nav-row:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+}
+
+/* ============================================================
+   设置页：收紧成细窄条（作用域限定在 .obai-settings，不影响别处）
+   ============================================================ */
+/* 设置行：保留 Obsidian 自己的卡片外观，只把内边距调紧一点。
+   之前把水平内边距压成 0，文字贴到卡片边缘，才显得又挤又丑。 */
+.obai-settings .setting-item {
+  padding: 10px 14px;
+  align-items: center;
+}
+
+.obai-settings .setting-item-name {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.obai-settings .setting-item-description {
+  font-size: 11.5px;
+  line-height: 1.45;
+  margin-top: 1px;
+}
+
+.obai-settings .setting-item-control {
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* 输入框 / 按钮统一压低高度（下拉单独处理，见下） */
+.obai-settings .setting-item-control > button,
+.obai-settings .setting-item-control > input[type="text"],
+.obai-settings .setting-item-control > input[type="password"],
+.obai-settings .setting-item-control > input[type="number"] {
+  height: 26px;
+  min-height: 26px;
+  font-size: 12px;
+  padding: 0 8px;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.obai-settings .setting-item-control > button {
+  line-height: 1;
+}
+
+/* 开关小一号 */
+.obai-settings .checkbox-container {
+  transform: scale(0.88);
+  transform-origin: center;
+}
+
+/* 一行里的说明别挤成两行 */
+.obai-settings .setting-item-info {
+  min-width: 0;
+}
+
+/* ============================================================
+   选中胶囊：精致化 + 轻动效
+   只动 transform / opacity（合成层），不触发重排，不卡
+   ============================================================ */
+.obai-bubble {
+  border-radius: 10px;
+  padding: 3px 4px;
+  background: linear-gradient(180deg,
+    var(--background-primary) 0%,
+    var(--background-secondary) 100%);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 4px 14px rgba(0, 0, 0, 0.10);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.obai-bubble:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 6px 18px rgba(0, 0, 0, 0.13);
+}
+
+.obai-bubble-main,
+.obai-bubble-more {
+  border-radius: 7px;
+  transition: background .1s ease;
+}
+
+.obai-bubble-icon {
+  transition: transform .18s ease;
+}
+
+.obai-bubble:hover .obai-bubble-icon {
+  transform: scale(1.08);
+}
+
+.obai-bubble-more {
+  border-left: 1px solid var(--background-modifier-border);
+  border-radius: 0 7px 7px 0;
+}
+
+/* 深色主题用更大的阴影反差，别糊成一团 */
+.theme-dark .obai-bubble {
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.055) 0%,
+    rgba(255, 255, 255, 0.02) 100%),
+    var(--background-secondary);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.35),
+    0 6px 20px rgba(0, 0, 0, 0.30);
+}
+
+/* 触摸设备：加大点击区域，避免误触 */
+@media (pointer: coarse) {
+  .obai-bubble {
+    padding: 5px 6px;
+    gap: 4px;
+  }
+
+  .obai-bubble-main,
+  .obai-bubble-more {
+    min-height: 32px;
+  }
+}
+
+/* 用户偏好减少动效时全部关掉 */
+@media (prefers-reduced-motion: reduce) {
+  .obai-bubble,
+  .obai-bubble-icon,
+  .obai-nav-row,
+  .obai-nav-arrow,
+  .obai-nav-icon {
+    transition: none;
+  }
+
+  .obai-bubble:hover {
+    transform: none;
+  }
+
+  .obai-bubble:hover .obai-bubble-icon {
+    transform: none;
+  }
+}
+
+/* 改内置动作提示词的输入框 */
+.obai-prompt-edit {
+  width: 100%;
+  min-height: 220px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-family: var(--font-monospace);
+  font-size: 12.5px;
+  line-height: 1.65;
+  resize: vertical;
+}
+
+/* 下拉框：右侧必须留出箭头的位置，否则文字会压到箭头上 */
+.obai-settings .setting-item-control > select {
+  height: 26px;
+  min-height: 26px;
+  font-size: 12px;
+  padding: 0 28px 0 8px;
+  border-radius: 6px;
+  min-width: 130px;
+  max-width: 280px;
+  text-overflow: ellipsis;
+}
+
+/* 提示词页的「改提示词」——纯文字，无边框无背景；hover 只把字变橙 */
+.obai-settings .setting-item-control > button.obai-linkbtn,
+.obai-settings .setting-item-control > button.obai-linkbtn:hover,
+.obai-settings .setting-item-control > button.obai-linkbtn:active,
+.obai-settings .setting-item-control > button.obai-linkbtn:focus {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  height: auto;
+  min-height: 0;
+  padding: 2px 2px;
+  font-weight: 600;
+  font-size: 12px;
+  text-decoration: none;
+}
+
+.obai-settings .setting-item-control > button.obai-linkbtn {
+  color: var(--text-accent);
+}
+
+.obai-settings .setting-item-control > button.obai-linkbtn:hover {
+  color: var(--color-orange, #e8842c) !important;
+}
+
+/* 胶囊右侧的展开箭头：缩到最小，不抢视线 */
+.obai-bubble .obai-bubble-more {
+  width: 15px;
+  min-width: 15px;
+  padding: 0;
+  margin-left: 0;
+  border-left: none;
+  border-radius: 0 7px 7px 0;
+  opacity: .45;
+  transition: opacity .12s ease;
+}
+
+.obai-bubble .obai-bubble-more .svg-icon {
+  width: 11px;
+  height: 11px;
+}
+
+.obai-bubble:hover .obai-bubble-more,
+.obai-bubble .obai-bubble-more:hover {
+  opacity: 1;
+}
+
+/* ============================================================
+   本插件弹出的菜单：只收紧自己的，不动全局 .menu
+   ============================================================ */
+.obai-menu.menu {
+  min-width: 0 !important;
+  width: auto;
+  --menu-min-width: 0px;
+  padding: 4px;
+}
+
+.obai-menu.menu .menu-item {
+  padding: 4px 6px 4px 10px;
+  border-radius: 5px;
+}
+
+.obai-menu.menu .menu-item-title {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+/* 二级菜单里的箭头留一点点距离就够，别把菜单撑宽 */
+.obai-menu.menu .menu-item-icon {
+  margin-right: 2px;
+}
+
+/* 设置首页目录行：hover 时文字也一起变主题色 */
+.obai-nav-row:hover .obai-nav-name {
+  color: var(--text-accent);
+}
+
+/* ============================================================
+   胶囊右侧的 ▾：去掉按钮背景，只变颜色
+   ============================================================ */
+.obai-bubble .obai-bubble-more,
+.obai-bubble .obai-bubble-more:hover,
+.obai-bubble .obai-bubble-more:active,
+.obai-bubble .obai-bubble-more:focus {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  color: var(--text-muted);
+}
+
+.obai-bubble .obai-bubble-more:hover {
+  color: var(--text-accent) !important;
+}
+
+/* 菜单：贴内容宽度，别被最小宽度撑开 */
+.obai-menu.menu {
+  width: max-content !important;
+  min-width: 0 !important;
+  max-width: 320px;
+}
+
+/* 胶囊主按钮：只去背景与边框，阴影保留 */
+.obai-bubble .obai-bubble-main,
+.obai-bubble .obai-bubble-main:hover,
+.obai-bubble .obai-bubble-main:active,
+.obai-bubble .obai-bubble-main:focus {
+  background: transparent !important;
+  border: none !important;
+}
+
+/* 「AI」两个字：常态主题蓝，鼠标移到胶囊上变橙 */
+.obai-bubble .obai-pill-ai {
+  color: var(--text-accent);
+  transition: color .12s ease;
+}
+
+.obai-bubble:hover .obai-pill-ai {
+  color: var(--color-orange, #e8842c);
+}
+
+/* 图标保持原来的缩放动效，不改颜色 */
+
+/* ============================================================
+   自绘动作菜单（胶囊 ▾）
+   ============================================================ */
+.obai-actions {
+  position: fixed;
+  z-index: calc(var(--layer-menu, 50) + 2);
+  width: max-content;
+  min-width: 0;
+  max-width: 260px;
+  padding: 5px;
+  border-radius: 12px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  /* 双层阴影：近处一层薄的定轮廓，远处一层大的托起来 */
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    0 14px 36px rgba(0, 0, 0, 0.18);
+  font-size: 13px;
+}
+
+.obai-actions-sub {
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    0 10px 28px rgba(0, 0, 0, 0.16);
+}
+
+.obai-actions-sub {
+  z-index: calc(var(--layer-menu, 50) + 3);
+}
+
+.obai-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;   /* 箭头贴右边缘对齐 */
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--text-normal);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.obai-action-row:hover {
+  background: var(--background-modifier-hover);
+}
+
+.obai-action-row:hover .obai-action-label {
+  color: var(--text-accent);
+}
+
+.obai-action-row:hover .obai-action-arrow {
+  color: var(--text-accent);
+}
+
+.obai-action-label {
+  flex: 0 0 auto;
+}
+
+.obai-action-arrow {
+  display: inline-flex;
+  flex: 0 0 auto;
+  color: var(--text-faint);
+}
+
+.obai-action-arrow .svg-icon {
+  width: 12px;
+  height: 12px;
+}
+
+.obai-action-sep {
+  height: 1px;
+  margin: 4px 6px;
+  background: var(--background-modifier-border);
+}
+
+.obai-action-sub-title {
+  padding: 6px 8px 2px;
+  font-size: 11px;
+  color: var(--text-faint);
+}
+
+/* ============================================================
+   胶囊：收紧留白 + 放大字号与图标
+   ============================================================ */
+.obai-bubble {
+  padding: 2px 3px;
+  gap: 0;
+  border-radius: 9px;
+}
+
+.obai-bubble .obai-bubble-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  /* 右边只留 4px：让 ▾ 紧贴文字，不留空档 */
+  padding: 4px 4px 4px 8px;
+  border-radius: 7px;
+}
+
+.obai-bubble .obai-bubble-icon .svg-icon {
+  width: 17px;
+  height: 17px;
+}
+
+.obai-bubble .obai-pill-ai {
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.obai-bubble .obai-pill-tool {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.obai-bubble .obai-bubble-more {
+  width: 15px;
+  min-width: 15px;
+  margin-left: 0;
+  padding: 0;
+}
+
+/* 还没用过任何动作时（只有 ✦ AI）：把右侧留白收到最小 */
+.obai-bubble .obai-bubble-main.is-bare {
+  padding: 4px 2px 4px 8px;
+  gap: 4px;
+}
+
+/* 菜单再收紧一点内边距 */
+.obai-actions {
+  padding: 4px;
+}
+
+.obai-action-row {
+  padding: 5px 8px;
+}
+
+/* 深色主题：阴影加深，边框提亮一点 */
+.theme-dark .obai-actions {
+  background: var(--background-secondary);
+  border-color: rgba(255, 255, 255, 0.10);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.40),
+    0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+/* 设置页顶部：标题行可点（进「诊断与关于」），hover 变橙 + 浮出小扳手 */
+.obai-head-name-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.obai-head-name {
+  transition: color .12s ease;
+}
+
+.obai-head-name-row:hover .obai-head-name {
+  color: var(--color-orange, #e8842c);
+}
+
+.obai-head-wrench {
+  display: inline-flex;
+  align-items: center;
+  opacity: 0;
+  transform: translateX(-3px);
+  transition: opacity .12s ease, transform .12s ease;
+  /* 扳手用主题蓝，和标题的橙色区分开 */
+  color: var(--text-accent);
+}
+
+.obai-head-name-row:hover .obai-head-wrench {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.obai-head-wrench .svg-icon {
+  width: 14px;
+  height: 14px;
+}
+
+/* 继续上次对话时的提示条 */
+.obai-rw-continue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 0 6px 0;
+  padding: 5px 8px;
+  border-radius: 7px;
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.obai-rw-continue-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.obai-rw-continue-x {
+  flex: 0 0 auto;
+  height: auto;
+  padding: 0 4px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--text-faint);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.obai-rw-continue-x:hover {
+  color: var(--text-accent);
+  background: transparent;
+}
+
+/* 「查看上次内容」折叠区 */
+.obai-rw-recall {
+  margin: -2px 0 6px 0;
+  font-size: 12px;
+}
+
+.obai-rw-recall > summary {
+  padding: 2px 2px;
+  list-style: none;
+  cursor: pointer;
+  color: var(--text-faint);
+  user-select: none;
+}
+
+.obai-rw-recall > summary::-webkit-details-marker {
+  display: none;
+}
+
+.obai-rw-recall > summary::before {
+  content: '▸ ';
+}
+
+.obai-rw-recall[open] > summary::before {
+  content: '▾ ';
+}
+
+.obai-rw-recall > summary:hover {
+  color: var(--text-accent);
+}
+
+.obai-recall-body {
+  max-height: 180px;
+  overflow: auto;
+  margin-top: 2px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+}
+
+.obai-recall-line {
+  display: flex;
+  gap: 6px;
+  padding: 3px 0;
+  line-height: 1.55;
+}
+
+.obai-recall-who {
+  flex: 0 0 auto;
+  font-weight: 600;
+  color: var(--text-faint);
+}
+
+.obai-recall-line.is-user .obai-recall-who {
+  color: var(--text-accent);
+}
+
+.obai-recall-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   设置页头部：去掉卡片背景，整体居中
+   ============================================================ */
+.obai-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 0 12px 0;
+  margin: 0 0 12px 0;
+  border: none;
+  border-bottom: 1px solid var(--background-modifier-border);
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  text-align: center;
+}
+
+.obai-head-left {
+  flex: 0 0 auto;
+  min-width: 0;
+  text-align: center;
+}
+
+.obai-head-name-row {
+  justify-content: center;
+}
+
+.obai-head-meta {
+  text-align: center;
+}
+
+/* ============================================================
+   批量处理面板
+   ============================================================ */
+.obai-batch {
+  position: fixed;
+  z-index: calc(var(--layer-modal, 50) + 8);
+  width: 320px;
+  max-width: calc(100vw - 24px);
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.08),
+    0 12px 32px rgba(0, 0, 0, 0.20);
+  font-size: 12.5px;
+}
+
+.obai-batch-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.obai-batch-title {
+  flex: 1 1 auto;
+  font-weight: 600;
+  color: var(--text-normal);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.obai-batch-count {
+  flex: 0 0 auto;
+  color: var(--text-faint);
+  font-size: 11.5px;
+}
+
+.obai-batch-x {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--text-faint);
+  cursor: pointer;
+}
+
+.obai-batch-x:hover {
+  color: var(--text-normal);
+}
+
+.obai-batch-list {
+  max-height: 260px;
+  overflow: auto;
+}
+
+.obai-batch-row {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  line-height: 1.5;
+}
+
+.obai-batch-idx {
+  flex: 0 0 16px;
+  color: var(--text-faint);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.obai-batch-text {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--text-muted);
+}
+
+.obai-batch-state {
+  flex: 0 0 auto;
+  font-size: 11.5px;
+  color: var(--text-faint);
+}
+
+.obai-batch-row.is-run {
+  background: var(--background-modifier-hover);
+}
+.obai-batch-row.is-run .obai-batch-state {
+  color: var(--text-accent);
+}
+.obai-batch-row.is-run .obai-batch-text {
+  color: var(--text-normal);
+}
+
+.obai-batch-row.is-ok .obai-batch-state {
+  color: var(--color-green);
+}
+
+.obai-batch-row.is-fail .obai-batch-state {
+  color: var(--color-red);
+}
+
+.obai-batch-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--background-modifier-border);
+}
+
+.obai-batch-msg {
+  flex: 1 1 auto;
+  color: var(--text-muted);
+  font-size: 11.5px;
+}
+
+.obai-batch-cancel {
+  flex: 0 0 auto;
+  height: auto;
+  padding: 1px 6px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--text-faint);
+  font-size: 11.5px;
+  cursor: pointer;
+}
+
+.obai-batch-cancel:hover {
+  color: var(--text-accent);
+}
+
+
+/* 结果卡片按钮：平时中性，鼠标移上去才变成主题蓝 */
+.obai-btns .obai-btn {
+  background: var(--background-secondary);
+  border: 1px solid var(--background-modifier-border);
+  color: var(--text-normal);
+  box-shadow: none;
+  transition: background .12s ease, color .12s ease, border-color .12s ease;
+}
+
+.obai-btns .obai-btn:hover {
+  background: var(--interactive-accent);
+  border-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+.obai-btns .obai-btn.ghost {
+  background: transparent;
+}
+
+.obai-btns .obai-btn.ghost:hover {
+  background: var(--interactive-accent);
+  border-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+/* 对话框里的「已标记 N 段」横幅 */
+.obai-rw-marks {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 0 6px 0;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--background-secondary);
+  border-left: 3px solid var(--interactive-accent);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.obai-rw-marks-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.obai-rw-marks-x {
+  flex: 0 0 auto;
+  height: auto;
+  padding: 0 2px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--text-faint);
+  font-size: 11.5px;
+  cursor: pointer;
+}
+
+.obai-rw-marks-x:hover {
+  color: var(--text-accent);
+  background: transparent;
+}
+
+/* 批量面板：收得更紧、更安静 */
+.obai-batch {
+  width: 300px;
+  padding: 9px 11px;
+  border-radius: 10px;
+}
+
+.obai-batch-head {
+  margin-bottom: 5px;
+}
+
+.obai-batch-row {
+  padding: 3px 4px;
+  gap: 6px;
+}
+
+.obai-batch-idx {
+  flex: 0 0 12px;
+  font-size: 10.5px;
+  opacity: .55;
+}
+
+.obai-batch-text {
+  font-size: 12px;
+}
+
+.obai-batch-state {
+  font-size: 11px;
+}
+
+.obai-batch-row.is-ok .obai-batch-text {
+  color: var(--text-faint);
+}
+
+.obai-batch-foot {
+  margin-top: 6px;
+  padding-top: 6px;
+}
+
+.obai-batch-msg {
+  font-size: 11px;
+}
+
+/* ============================================================
+   单行输入条：和 AI 对话框一致的观感（输入 + 箭头）
+   ============================================================ */
+.obai-askbar {
+  position: fixed;
+  z-index: calc(var(--layer-modal, 50) + 10);
+  left: 50%;
+  top: 22%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: min(420px, 90vw);
+  padding: 5px 5px 5px 12px;
+  border-radius: 10px;
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.08),
+    0 16px 40px rgba(0, 0, 0, 0.20);
+}
+
+.obai-askbar-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 26px;
+  padding: 0;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-size: 13.5px;
+  color: var(--text-normal);
+}
+
+.obai-askbar-input:focus {
+  outline: none;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.obai-askbar-send {
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 7px;
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+  cursor: pointer;
+}
+
+.obai-askbar-send:hover {
+  background: var(--interactive-accent);
+  filter: brightness(1.08);
+}
+
+.obai-askbar-send .svg-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.obai-batch-retry {
+  flex: 0 0 auto;
+  height: auto;
+  margin-right: 6px;
+  padding: 1px 8px;
+  border: 1px solid var(--interactive-accent);
+  border-radius: 6px;
+  background: transparent;
+  box-shadow: none;
+  color: var(--text-accent);
+  font-size: 11.5px;
+  cursor: pointer;
+}
+
+.obai-batch-retry:hover {
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+/* 接口卡片上的上下移按钮 */
+.obai-order-btn {
+  flex: 0 0 auto;
+  height: auto;
+  min-width: 20px;
+  padding: 0 4px;
+  margin-left: 4px;
+  background: transparent;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 5px;
+  box-shadow: none;
+  color: var(--text-muted);
+  font-size: 11px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.obai-order-btn:hover {
+  color: var(--text-accent);
+  border-color: var(--text-accent);
+}
+
+.obai-order-btn.is-off {
+  opacity: .35;
+  cursor: default;
+}
+
+/* 批量面板：单段跳过 */
+.obai-batch-row .obai-batch-skip {
+  flex: 0 0 auto;
+  height: auto;
+  padding: 0 4px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  color: var(--text-faint);
+  font-size: 11px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity .1s ease;
+}
+
+.obai-batch-row:hover .obai-batch-skip {
+  opacity: 1;
+}
+
+.obai-batch-row .obai-batch-skip:hover {
+  color: var(--text-accent);
+}
+
+.obai-batch-row.is-skip .obai-batch-text {
+  text-decoration: line-through;
+  color: var(--text-faint);
+}
+
+.obai-batch-row.is-skip .obai-batch-state {
+  color: var(--text-faint);
+}
+

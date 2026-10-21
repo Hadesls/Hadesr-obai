@@ -1,0 +1,13 @@
+# 本机配置（含真实接口地址与加密后的 Key）—— 绝不能提交
+data.json
+
+# 系统垃圾
+.DS_Store
+Thumbs.db
+
+# 依赖 / 打包产物
+node_modules/
+*.zip
+
+# 如果整个仓库被放进某个库里，别把库配置带上
+.obsidian/
