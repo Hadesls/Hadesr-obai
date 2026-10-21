@@ -61,25 +61,13 @@
 
 ## 开发
 
-```bash
-# 语法与结构体检
-node tools/audit.js
+仓库只包含**运行所需**的文件：`main.js`、`manifest.json`、`styles.css`、`versions.json`。
+开发与测试脚本不随仓库发布 —— 这样 clone 或下载 release 拿到的就是干净可用的插件，不会多出一堆无关文件。
 
-# 发布前检查（隐私 / 仓库完整性）
-node tools/release-check.js
+改完代码后：
 
-# 再加一步：真实 git 模拟提交，确认 data.json 不会被带上
-node tools/release-check.js --git
-
-# 行为测试（不需要 Obsidian）
-node tools/load-test.js      # 加载链路、设置页 9 个页面、面板、diff
-node tools/complete-test.js  # 补全逻辑（提示词 / 预算 / 清洗）
-node tools/pill-test.js      # 胶囊文案与状态
-
-# 需要真 CodeMirror（验证扩展装配）
-mkdir -p /tmp/cmtest && cd /tmp/cmtest && npm i @codemirror/view@6 @codemirror/state@6
-CM_DIR=/tmp/cmtest/node_modules node tools/cm-test.js
-```
+1. 把 `manifest.json` 里的 `version` 加 1（例如 `0.53.0` → `0.53.1`）；
+2. 在 Obsidian 里重载插件：`Ctrl/Cmd + R`，或在设置里把插件关掉再打开。
 
 ## 移动端
 
