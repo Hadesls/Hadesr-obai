@@ -3,7 +3,7 @@
   "name": "Hadesr AI",
   "version": "0.53.0",
   "minAppVersion": "1.4.0",
-  "description": "选中即改写，行内补全（Tab 采纳）；16 个动作 + AI 对话 + 标记批量，支持三种接口。",
+  "description": "选中文字即可改写，支持行内补全、AI 对话与 16 个写作动作，兼容 OpenAI、Anthropic 与 Google.",
   "author": "Hadesr",
   "authorUrl": "https://github.com/Hadesls",
   "isDesktopOnly": false
