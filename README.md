@@ -3,6 +3,8 @@
 在 Obsidian 里写作时，选中文字就浮出胶囊「✦ AI ▾」；停手就在光标后猜下一句。
 不用打开侧边栏，也不打断你打字。
 
+**English:** Hadesr AI is an Obsidian plugin for AI-assisted writing. Select text to rewrite, get inline completions, and run 16 built-in actions with OpenAI, Anthropic, or Google.
+
 ## 功能
 
 | 功能 | 说明 |
@@ -29,7 +31,14 @@
 
 ![选中文字后的动作菜单](docs/bubble-menu.png)
 
-## 安装
+## Installation
+
+### From the community directory
+1. Open **Settings → Community plugins**.
+2. Turn off Restricted mode, choose **Browse**, search **Hadesr AI**, install, and enable.
+
+### Manual installation
+Copy `main.js`, `manifest.json`, and `styles.css` into `.obsidian/plugins/hadesr-obai/`, then enable **Hadesr AI**.
 
 ### 方式一：社区插件市场
 
@@ -63,7 +72,9 @@ git clone https://github.com/Hadesls/Hadesr-obai.git
 
 支持本地服务（Ollama / vLLM / LM Studio 等），Key 可留空。
 
-## 怎么使用
+## Usage
+
+**English:** Select text to open the action bubble. Pick an action or ask in AI chat. Press `Tab` to accept an inline completion.
 
 最短路径：
 
