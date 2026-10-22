@@ -1,7 +1,7 @@
 {
   "id": "hadesr-obai",
   "name": "Hadesr AI",
-  "version": "0.53.0",
+  "version": "0.53.1",
   "minAppVersion": "1.4.0",
   "description": "选中文字即可改写，支持行内补全、AI 对话与 16 个写作动作，兼容 OpenAI、Anthropic 与 Google.",
   "author": "Hadesr",
